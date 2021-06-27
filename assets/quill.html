@@ -13788,6 +13788,7 @@
     <!-- Initialize Quill editor -->
     <script>
       const quill = new Quill('#editor', window.options);
+
       quill.on('text-change', function (delta, oldDelta, source) {
         const html = document.querySelector('#editor').children[0].innerHTML;
         const message = {
@@ -13796,6 +13797,10 @@
         };
         window.ReactNativeWebView.postMessage(JSON.stringify(message));
       });
+
+      const delta = quill.clipboard.convert(window.options.content);
+
+      quill.setContents(delta, 'silent');
     </script>
   </body>
 </html>
